@@ -1,0 +1,736 @@
+import React, { useEffect, useRef } from 'react';
+import { ShieldCheck, Award, Heart, Users } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Galaxy from '../animations/GalaxyProps';
+import BlurText from '../animations/BlurText';
+import ProfileCard from '../animations/ProfileCard';
+import { useNavigate } from 'react-router-dom';
+import MagicBento from '../animations/MagicBento';
+
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default function About() {
+  const navigate = useNavigate();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (el) {
+      gsap.fromTo(
+        el.querySelectorAll('.reveal-about'),
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+  }, []);
+
+
+  return (
+
+    <div ref={containerRef} className="bg-white font-charlieText">
+
+      {/* About Hero */}
+      <section className="relative overflow-hidden min-h-[80vh] border-b border-slate-200">
+
+        {/* Particles Background */}
+        <div className="absolute inset-0 z-0">
+          <Galaxy
+            hueShift={220}
+            saturation={1.0}
+            glowIntensity={0.5}
+            density={1.2}
+            speed={1}
+            transparent={true}
+          />
+        </div>
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-white/85 backdrop-blur-[1px] z-[1]" />
+
+        {/* Content */}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-28">
+
+          <div className="text-center max-w-5xl mx-auto">
+
+            <span className="inline-block rounded-full bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-blue-600 mb-6">
+              ABOUT NOVOZ INFINITY
+            </span>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 font-charlieDisplay leading-[1.1] mb-8">
+              Engineered To Help Businesses Scale Through
+              <span className="text-blue-600">
+                {' '}Technology, Automation & AI
+              </span>
+            </h1>
+
+            <p className="max-w-3xl mx-auto text-lg lg:text-xl text-slate-600 leading-relaxed mb-10">
+              Novoz Infinity is a technology solutions company helping businesses
+              modernise operations through custom software, automation systems,
+              digital platforms, and AI-powered solutions.
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-8">
+
+              <div>
+                <h3 className="text-3xl font-bold text-blue-600">30+</h3>
+                <p className="text-slate-600">Businesses Served</p>
+              </div>
+
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+      {/* Company Overview & Mission */}
+      <section className="py-24 bg-white border-b border-slate-200 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+            {/* Left Content */}
+            <div>
+
+              <span className="inline-block rounded-full bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-blue-600 mb-6">
+                OUR PURPOSE
+              </span>
+
+              <BlurText
+                text="Transforming Businesses Through Technology & Innovation"
+                animateBy="words"
+                direction="top"
+                delay={120}
+                className="text-4xl lg:text-5xl font-bold text-slate-900 font-charlieDisplay leading-tight mb-8"
+              />
+
+              <BlurText
+                text="Novoz Infinity is a technology solutions company helping businesses modernise operations through custom software, automation systems, digital platforms, and AI-powered solutions. We work as long-term technology partners, helping organisations improve efficiency, accelerate growth, and stay competitive in a rapidly evolving digital world."
+                animateBy="words"
+                direction="bottom"
+                delay={40}
+                className="text-lg text-slate-600 leading-relaxed mb-10"
+              />
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-6">
+
+                <div className="group">
+                  <h3 className="text-4xl font-bold text-blue-600 transition-transform duration-300 group-hover:scale-110">
+                    30+
+                  </h3>
+                  <p className="text-sm text-slate-500 mt-2">
+                    Businesses Served
+                  </p>
+                </div>
+
+                <div className="group">
+                  <h3 className="text-4xl font-bold text-blue-600 transition-transform duration-300 group-hover:scale-110">
+                    9+
+                  </h3>
+                  <p className="text-sm text-slate-500 mt-2">
+                    Proprietary Products
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+
+            {/* Right Content */}
+            <div className="space-y-6">
+
+              {/* Mission */}
+              <div className="fall-card group rounded-3xl border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(37,99,235,0.15)]">
+
+                <span className="text-xs font-bold tracking-[0.25em] text-blue-600 uppercase">
+                  Mission
+                </span>
+
+                <h3 className="mt-4 text-2xl font-bold text-slate-900 font-charlieDisplay">
+                  Empower Businesses Through Technology
+                </h3>
+
+                <p className="mt-4 text-slate-600 leading-relaxed">
+                  To empower businesses with scalable technology solutions that
+                  drive efficiency, innovation, and measurable business outcomes.
+                </p>
+
+              </div>
+
+              {/* Vision */}
+              <div className="fall-card-delay group rounded-3xl border border-slate-200 bg-white p-8 transition-all duration-500 hover:-translate-y-2 hover:border-blue-200 hover:shadow-[0_20px_50px_rgba(37,99,235,0.12)]">
+                <span className="text-xs font-bold tracking-[0.25em] text-blue-600 uppercase">
+                  Vision
+                </span>
+
+                <h3 className="mt-4 text-2xl font-bold text-slate-900 font-charlieDisplay">
+                  Become The Most Trusted Growth Partner
+                </h3>
+
+                <p className="mt-4 text-slate-600 leading-relaxed">
+                  To become the most trusted technology growth partner by delivering
+                  intelligent software, automation, and AI solutions that create
+                  lasting impact.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+      {/* Leadership Section */}
+      <section className="py-24 bg-slate-50 border-b border-slate-200">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+            {/* Left Side - Profile Card */}
+            <div className="flex justify-center">
+              <ProfileCard
+                name="Richie Allan S"
+                title="Founder & CEO"
+                handle="novozinfinity"
+                status="Building The Future"
+                contactText="Connect"
+                onContactClick={() => navigate('/contact')}
+              />
+            </div>
+
+            {/* Right Side - Founder Message */}
+            <div>
+
+              <span className="inline-block rounded-full bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-blue-600 mb-6">
+                LEADERSHIP
+              </span>
+
+              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 font-charlieDisplay leading-tight mb-6">
+                Meet Our Founder
+              </h2>
+
+              <p className="text-lg text-slate-600 leading-relaxed mb-6">
+                At Novoz Infinity, we believe technology should do more than solve
+                problems—it should create opportunities for growth. Our mission is to
+                help businesses embrace innovation through software, automation, and
+                AI-driven solutions that deliver measurable results.
+              </p>
+
+              <div className="rounded-3xl border border-blue-100 bg-blue-50 p-6">
+                <p className="text-xl italic text-slate-700 leading-relaxed">
+                  "When our clients grow, we grow. Every solution we build is designed
+                  to create lasting business impact."
+                </p>
+
+                <div className="mt-4">
+                  <h4 className="font-bold text-slate-900">
+                    Richie Allan S
+                  </h4>
+
+                  <p className="text-sm text-slate-500">
+                    Founder & CEO, Novoz Infinity
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+      {/* Core Values */}
+      <section className="py-24 bg-slate-50 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <div className="text-center mb-16">
+            <span className="text-xs font-bold tracking-[0.25em] uppercase text-blue-600 bg-blue-50 px-4 py-2 rounded-full">
+              OUR CORE VALUES
+            </span>
+
+            <h2 className="mt-6 text-4xl md:text-5xl font-bold text-slate-900 font-charlieDisplay">
+              Principles That Drive Everything We Build
+            </h2>
+
+            <p className="mt-5 max-w-3xl mx-auto text-lg text-slate-600">
+              Our values shape how we innovate, collaborate, and deliver
+              technology solutions that create measurable business impact.
+            </p>
+          </div>
+
+          <div className="flex justify-center">
+            <MagicBento
+              glowColor="37, 99, 235"
+              enableStars={true}
+              enableSpotlight={true}
+              enableBorderGlow={true}
+              clickEffect={true}
+              enableMagnetism={true}
+            />
+          </div>
+
+        </div>
+      </section>
+      {/* How We Work Section */}
+      <section className="py-24 bg-slate-50 border-b border-slate-200">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto mb-20">
+
+            <span className="inline-block rounded-full bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-blue-600 mb-6">
+              HOW WE WORK
+            </span>
+
+            <BlurText
+              text="A Proven Process For Delivering Business Impact"
+              animateBy="words"
+              direction="top"
+              delay={120}
+              className="text-4xl lg:text-5xl font-bold text-slate-900 font-charlieDisplay leading-tight mb-6 justify-center"
+            />
+
+            <p className="text-lg text-slate-600">
+              From discovery to deployment, we follow a structured approach that
+              ensures every solution aligns with your business goals.
+            </p>
+
+          </div>
+
+          {/* Timeline */}
+          <div className="grid md:grid-cols-4 gap-8">
+
+            {/* Step 1 */}
+            <div className="relative group">
+
+              <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-6 transition-all duration-300 group-hover:scale-110">
+                01
+              </div>
+
+              <h3 className="text-2xl font-bold text-blue-600 mb-4">
+                Discover
+              </h3>
+
+              <p className="text-slate-600 leading-relaxed">
+                We begin by understanding your business objectives, challenges,
+                workflows, and opportunities for growth.
+              </p>
+
+            </div>
+
+            {/* Step 2 */}
+            <div className="relative group">
+
+              <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-6 transition-all duration-300 group-hover:scale-110">
+                02
+              </div>
+
+              <h3 className="text-2xl font-bold text-blue-600 mb-4">
+                Strategize
+              </h3>
+
+              <p className="text-slate-600 leading-relaxed">
+                Our experts create a technology roadmap tailored to your goals,
+                ensuring the right solutions for long-term success.
+              </p>
+
+            </div>
+
+            {/* Step 3 */}
+            <div className="relative group">
+
+              <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-6 transition-all duration-300 group-hover:scale-110">
+                03
+              </div>
+
+              <h3 className="text-2xl font-bold text-blue-600 mb-4">
+                Build
+              </h3>
+
+              <p className="text-slate-600 leading-relaxed">
+                We design, develop, and deploy scalable software, automation
+                systems, and AI-powered solutions.
+              </p>
+
+            </div>
+
+            {/* Step 4 */}
+            <div className="relative group">
+
+              <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-6 transition-all duration-300 group-hover:scale-110">
+                04
+              </div>
+
+              <h3 className="text-2xl font-bold text-blue-600 mb-4">
+                Scale
+              </h3>
+
+              <p className="text-slate-600 leading-relaxed">
+                We provide ongoing optimization, support, and innovation to help
+                your business grow and adapt over time.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+    {/* Global Presence & Impact */}
+<section className="relative overflow-hidden py-24 bg-gradient-to-br from-blue-50 via-white to-slate-50 border-b border-slate-200">
+
+  {/* Background Glow */}
+  <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
+  <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-400/10 blur-3xl" />
+
+  <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+    {/* Heading */}
+    <div className="text-center max-w-3xl mx-auto mb-16">
+
+      <span className="inline-block rounded-full bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-blue-600 mb-6">
+        GLOBAL PRESENCE
+      </span>
+
+      <BlurText
+        text="Driving Business Growth Across Regions"
+        animateBy="words"
+        direction="top"
+        delay={120}
+        className="text-4xl lg:text-5xl font-bold text-slate-900 font-charlieDisplay mb-6 justify-center"
+      />
+
+      <p className="text-lg text-slate-600">
+        We partner with businesses across industries, delivering innovative
+        technology solutions that create measurable impact and sustainable growth.
+      </p>
+
+    </div>
+
+    {/* Stats Cards */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+      {/* Card 1 */}
+      <div
+        className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300"
+        style={{ animation: "moveLeftRight 4s ease-in-out infinite alternate" }}
+      >
+        <h3 className="text-5xl font-bold text-blue-600 mb-3">
+          3+
+        </h3>
+
+        <p className="font-semibold text-slate-900 mb-2">
+          Global Locations
+        </p>
+
+        <p className="text-sm text-slate-600">
+          Expanding our presence and serving clients across multiple regions.
+        </p>
+      </div>
+
+      {/* Card 2 */}
+      <div
+        className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300"
+        style={{ animation: "moveLeftRight 5s ease-in-out infinite alternate" }}
+      >
+        <h3 className="text-5xl font-bold text-blue-600 mb-3">
+          30+
+        </h3>
+
+        <p className="font-semibold text-slate-900 mb-2">
+          Businesses Served
+        </p>
+
+        <p className="text-sm text-slate-600">
+          Helping organizations modernize operations through technology.
+        </p>
+      </div>
+
+      {/* Card 3 */}
+      <div
+        className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300"
+        style={{ animation: "moveLeftRight 6s ease-in-out infinite alternate" }}
+      >
+        <h3 className="text-5xl font-bold text-blue-600 mb-3">
+          100+
+        </h3>
+
+        <p className="font-semibold text-slate-900 mb-2">
+          Projects Delivered
+        </p>
+
+        <p className="text-sm text-slate-600">
+          Successfully building software, automation, and AI solutions.
+        </p>
+      </div>
+
+      {/* Card 4 */}
+      <div
+        className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300"
+        style={{ animation: "moveLeftRight 7s ease-in-out infinite alternate" }}
+      >
+        <h3 className="text-5xl font-bold text-blue-600 mb-3">
+          24/7
+        </h3>
+
+        <p className="font-semibold text-slate-900 mb-2">
+          Client Support
+        </p>
+
+        <p className="text-sm text-slate-600">
+          Continuous support and optimization for long-term business growth.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+{/* Achievements */}
+      <section className="py-24 bg-white border-b border-slate-200">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          <div className="text-center max-w-3xl mx-auto mb-16">
+
+            <span className="inline-block rounded-full bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-blue-600 mb-6">
+              ACHIEVEMENTS
+            </span>
+
+            <BlurText
+              text="Milestones That Reflect Real Business Impact"
+              animateBy="words"
+              direction="top"
+              delay={120}
+              className="text-4xl lg:text-5xl font-bold text-slate-900 font-charlieDisplay leading-tight mb-6 justify-center"
+            />
+
+            <p className="text-lg text-slate-600">
+              Since our founding, Novoz Infinity has grown rapidly — earning the trust of businesses
+              across industries and delivering measurable results through technology. Our achievements
+              reflect our commitment to quality, partnership, and real business impact.
+            </p>
+
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-blue-200">
+              <ShieldCheck className="w-8 h-8 text-blue-600 mb-4" />
+              <p className="text-slate-700 leading-relaxed">
+                30+ businesses have trusted Novoz Infinity with their digital transformation journey
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-blue-200">
+              <Award className="w-8 h-8 text-blue-600 mb-4" />
+              <p className="text-slate-700 leading-relaxed">
+                Delivered solutions across multiple industries including retail, food &amp; beverage,
+                real estate, staffing, logistics, and professional services
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-blue-200">
+              <Award className="w-8 h-8 text-blue-600 mb-4" />
+              <p className="text-slate-700 leading-relaxed">
+                Successfully launched 4 proprietary software products — WAVOZ, HRMVOZ, INVOZ, and WORKFORZ
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-blue-200">
+              <Users className="w-8 h-8 text-blue-600 mb-4" />
+              <p className="text-slate-700 leading-relaxed">
+                Offices and presence across 3 locations: United Kingdom, Kanyakumari, and Chennai
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-blue-200">
+              <ShieldCheck className="w-8 h-8 text-blue-600 mb-4" />
+              <p className="text-slate-700 leading-relaxed">
+                Built a track record of on-time, on-scope delivery with a 100% client retention
+                rate on long-term partnerships
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-blue-200">
+              <Heart className="w-8 h-8 text-blue-600 mb-4" />
+              <p className="text-slate-700 leading-relaxed">
+                Recognised as a trusted MSME-focused technology partner, combining enterprise-grade
+                capability with accessibility and affordability
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* Our Clients */}
+      <section className="py-24 bg-slate-50 border-b border-slate-200">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          <div className="text-center max-w-3xl mx-auto mb-16">
+
+            <span className="inline-block rounded-full bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-blue-600 mb-6">
+              OUR CLIENTS
+            </span>
+
+            <BlurText
+              text="Organisations That Trust Novoz Infinity"
+              animateBy="words"
+              direction="top"
+              delay={120}
+              className="text-4xl lg:text-5xl font-bold text-slate-900 font-charlieDisplay leading-tight mb-6 justify-center"
+            />
+
+            <p className="text-lg text-slate-600">
+              The following organisations have trusted Novoz Infinity with their technology and
+              digital transformation needs.
+            </p>
+
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+            {[
+              'Assured Technologies',
+              'Ricspace',
+              'BNI Tirunelveli / Nagercoil / Tuticorin',
+              'Makeyourown',
+              'Grocery Next',
+              'Thahira Groups',
+              'Korichuko!',
+              'AARA',
+            ].map((client) => (
+              <div
+                key={client}
+                className="rounded-2xl border border-slate-200 bg-white p-6 flex items-center justify-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-blue-200"
+              >
+                <p className="font-semibold text-slate-800">{client}</p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-24 bg-white border-b border-slate-200">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          <div className="text-center max-w-3xl mx-auto mb-16">
+
+            <span className="inline-block rounded-full bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-blue-600 mb-6">
+              TESTIMONIALS
+            </span>
+
+            <BlurText
+              text="What Our Clients Say About Working With Us"
+              animateBy="words"
+              direction="top"
+              delay={120}
+              className="text-4xl lg:text-5xl font-bold text-slate-900 font-charlieDisplay leading-tight mb-6 justify-center"
+            />
+
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <p className="text-slate-600 leading-relaxed italic mb-6 flex-1">
+                "Novoz Infinity completely transformed how we manage our HR operations. HRMVOZ saved
+                us hours every single week on attendance tracking and payroll processing. The team
+                was professional, responsive, and genuinely invested in making the system work for us."
+              </p>
+              <div className="border-t border-slate-200 pt-4">
+                <h4 className="font-bold text-slate-900">Operations Head</h4>
+                <p className="text-sm text-slate-500">Thahira Groups</p>
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <p className="text-slate-600 leading-relaxed italic mb-6 flex-1">
+                "The Novoz Infinity team built our e-commerce platform from the ground up and delivered
+                exactly what we envisioned — on time and within budget. Within the first month of
+                launch, our online sales increased significantly. They truly understand what
+                businesses need."
+              </p>
+              <div className="border-t border-slate-200 pt-4">
+                <h4 className="font-bold text-slate-900">Founder</h4>
+                <p className="text-sm text-slate-500">Makeyourown</p>
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <p className="text-slate-600 leading-relaxed italic mb-6 flex-1">
+                "WAVOZ changed the way we handle customer queries entirely. Our response time dropped
+                dramatically, and our customers now get instant, accurate answers through WhatsApp at
+                any time of the day. The automation has been a game changer for our team."
+              </p>
+              <div className="border-t border-slate-200 pt-4">
+                <h4 className="font-bold text-slate-900">Marketing Manager</h4>
+                <p className="text-sm text-slate-500">Ricspace</p>
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <p className="text-slate-600 leading-relaxed italic mb-6 flex-1">
+                "Working with Novoz Infinity feels nothing like working with a vendor — they feel like
+                a part of our team. They take the time to understand your business deeply before
+                building anything, and the results speak for themselves."
+              </p>
+              <div className="border-t border-slate-200 pt-4">
+                <h4 className="font-bold text-slate-900">Director</h4>
+                <p className="text-sm text-slate-500">Assured Technologies</p>
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <p className="text-slate-600 leading-relaxed italic mb-6 flex-1">
+                "Novoz Infinity delivered a seamless digital platform for our chapter operations. Their
+                understanding of our workflow and attention to detail made the entire process smooth.
+                We are very happy with both the product and the ongoing support we receive."
+              </p>
+              <div className="border-t border-slate-200 pt-4">
+                <h4 className="font-bold text-slate-900">Chapter Director</h4>
+                <p className="text-sm text-slate-500">BNI Tirunelveli / Nagercoil / Tuticorin</p>
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-8 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <p className="text-slate-600 leading-relaxed italic mb-6 flex-1">
+                "The workflow management system Novoz Infinity built for us has made our day-to-day
+                operations significantly more organised and efficient. Our team adapted quickly, and
+                we have seen a noticeable improvement in productivity across the board."
+              </p>
+              <div className="border-t border-slate-200 pt-4">
+                <h4 className="font-bold text-slate-900">CEO</h4>
+                <p className="text-sm text-slate-500">Grocery Next</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  );
+}
