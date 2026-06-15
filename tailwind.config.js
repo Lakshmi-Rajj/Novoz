@@ -26,9 +26,9 @@ export default {
         }
       },
       fontFamily: {
-        charlieText: ["Charlie Text", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        charlieDisplay: ["Charlie Display", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        Novoz: ["Novoz Sans", "ui-sans-serif", "system-ui", "sans-serif"],
+        charlieText: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        charlieDisplay: ["Sora", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        Novoz: ["Sora", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       borderRadius: {
         'button': '4px',

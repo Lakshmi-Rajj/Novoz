@@ -211,10 +211,10 @@ function ContactForm() {
 
 export default function Contact() {
   return (
-    <div className="bg-white font-charlieText">
+    <div className="bg-white font-charlieText selection:bg-brand/10 selection:text-brand animate-fade">
 
       {/* ── HERO SECTION — Atlassian-style centered with geometric blue background ── */}
-      <section className="relative overflow-hidden border-b border-blue-100" style={{ background: '#dce8fb' }}>
+      <section className="relative overflow-hidden border-b border-blue-100 animate-fade" style={{ background: '#dce8fb' }}>
         {/* Geometric SVG shapes — mirroring Atlassian's abstract polygon pattern */}
         <svg
           aria-hidden="true"
@@ -224,26 +224,29 @@ export default function Contact() {
           xmlns="http://www.w3.org/2000/svg"
         >
           {/* Large left pentagon-ish shape */}
-          <polygon points="−60,80 260,20 320,200 140,340 −60,300" fill="#b8d0f5" opacity="0.7" />
+          <polygon points="−60,80 260,20 320,200 140,340 −60,300" fill="#b8d0f5" opacity="0.7" className="animate-drift-slow origin-center" />
           {/* Top-right large shape */}
-          <polygon points="1100,−30 1460,60 1460,260 1180,310 980,120" fill="#b8d0f5" opacity="0.65" />
+          <polygon points="1100,−30 1460,60 1460,260 1180,310 980,120" fill="#b8d0f5" opacity="0.65" className="animate-drift-slower origin-center" />
           {/* Centre-left mid shape */}
-          <polygon points="180,160 420,90 500,280 260,360 80,290" fill="#cddcf8" opacity="0.5" />
+          <polygon points="180,160 420,90 500,280 260,360 80,290" fill="#cddcf8" opacity="0.5" className="animate-drift-slow origin-center" style={{ animationDuration: '18s' }} />
           {/* Centre circle */}
-          <circle cx="720" cy="380" r="200" fill="#c4d9f7" opacity="0.4" />
+          <circle cx="720" cy="380" r="200" fill="#c4d9f7" opacity="0.4" className="animate-pulse" style={{ animationDuration: '7s' }} />
           {/* Bottom-right accent */}
-          <polygon points="1060,220 1340,180 1400,380 1100,420 920,370" fill="#a8c8f4" opacity="0.45" />
+          <polygon points="1060,220 1340,180 1400,380 1100,420 920,370" fill="#a8c8f4" opacity="0.45" className="animate-drift-slower origin-center" style={{ animationDuration: '24s' }} />
           {/* Top-centre small accent */}
-          <polygon points="580,−20 780,10 800,100 600,120 500,60" fill="#d4e5fa" opacity="0.55" />
+          <polygon points="580,−20 780,10 800,100 600,120 500,60" fill="#d4e5fa" opacity="0.55" className="animate-drift-slow origin-center" style={{ animationDuration: '14s' }} />
         </svg>
 
         {/* Centred text content */}
         <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-24 text-center">
-          <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-[#101214] font-charlieDisplay leading-tight mb-5">
-            Contact Us About<br />Novoz Infinity
+          <span className="inline-block rounded-full bg-white/60 backdrop-blur px-3.5 py-1.5 text-xs font-bold uppercase tracking-widest text-blue-700 mb-6 shadow-sm border border-white/40">
+            GET IN TOUCH
+          </span>
+          <h1 className="text-4xl sm:text-5xl lg:text-[58px] font-bold tracking-tight text-[#101214] font-charlieDisplay leading-tight mb-5">
+            Let's build something extraordinary together
           </h1>
-          <p className="text-lg text-slate-600 leading-relaxed">
-            We would love to hear from you. Whether you are looking to start a new project, explore our products, or simply learn more about how Novoz Infinity can help your business grow — reach out to our team today.
+          <p className="text-base sm:text-lg text-slate-650 leading-relaxed max-w-2xl mx-auto">
+            Talk to our engineering and product experts to design a system blueprint, review our product deployments, or outline a custom development roadmap.
           </p>
         </div>
       </section>

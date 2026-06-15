@@ -705,7 +705,7 @@ const MagicBento: React.FC<BentoProps> = ({
                     <span className="card__label text-base">{card.label}</span>
                   </div>
                   <div className="card__content flex flex-col relative text-slate-900">
-                    <h3 className={`card__title font-bold text 2xl text-blue-900 m-0 mb-2 ${ 'text-clamp-2'}`}>
+                    <h3 className={`card__title font-bold text 2xl text-blue-900 m-0 mb-2 ${'text-clamp-2'}`}>
                       {card.title}
                     </h3>
                     <p

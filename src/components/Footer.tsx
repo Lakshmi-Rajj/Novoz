@@ -3,14 +3,14 @@ export default function Footer() {
     <footer className="border-t border-slate-200 bg-white py-6">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-        {/* <div className="flex flex-wrap justify-center gap-6 text-sm font-medium">
+        <div className="flex flex-wrap justify-center gap-6 text-sm font-medium">
           <a href="/" className="hover:text-blue-600">Home</a>
+          <a href="/services" className="hover:text-blue-600">Services</a>
           <a href="/products" className="hover:text-blue-600">Products</a>
-          <a href="/solutions" className="hover:text-blue-600">Solutions</a>
-          <a href="/about" className="hover:text-blue-600">About</a>
           <a href="/careers" className="hover:text-blue-600">Careers</a>
+          <a href="/about" className="hover:text-blue-600">About</a>
           <a href="/contact" className="hover:text-blue-600">Contact</a>
-        </div> */}
+        </div>
 
         <div className="flex flex-wrap justify-center gap-6 mt-3 text-sm text-slate-600">
           <span>🇬🇧 Gloucestershire, UK</span>

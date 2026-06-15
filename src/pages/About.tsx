@@ -1,15 +1,102 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ShieldCheck, Award, Heart, Users } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Galaxy from '../animations/GalaxyProps';
 import BlurText from '../animations/BlurText';
 import ProfileCard from '../animations/ProfileCard';
 import { useNavigate } from 'react-router-dom';
 import MagicBento from '../animations/MagicBento';
-
+import RotatingText from '../animations/RotatingText';
 
 gsap.registerPlugin(ScrollTrigger);
+
+function CountUp({ end, duration = 1.5, suffix = '' }: { end: number; duration?: number; suffix?: string }) {
+  const [count, setCount] = useState(0);
+  const elementRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    let start = 0;
+    const endVal = end;
+    if (start === endVal) return;
+
+    let timer: ReturnType<typeof setInterval>;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          const totalMiliseconds = duration * 1000;
+          const stepTime = Math.abs(Math.floor(totalMiliseconds / endVal));
+
+          timer = setInterval(() => {
+            start += 1;
+            setCount(start);
+            if (start === endVal) {
+              clearInterval(timer);
+            }
+          }, Math.max(stepTime, 16));
+
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+      observer.disconnect();
+    };
+  }, [end, duration]);
+
+  return <h3 ref={elementRef} className="text-2xl sm:text-3xl font-extrabold text-blue-600 font-charlieDisplay">{count}{suffix}</h3>;
+}
+
+interface JourneyItem {
+  year: string;
+  title: string;
+  description: string;
+}
+
+const journeyItems: JourneyItem[] = [
+  {
+    year: '2023',
+    title: 'The Beginning',
+    description: 'Started as a small freelance team of 3 passionate technology professionals delivering software solutions for local businesses.'
+  },
+  {
+    year: '2024',
+    title: 'Building Experience',
+    description: 'Successfully completed multiple freelance projects, expanded technical expertise, and built long-term relationships with clients across different industries.'
+  },
+  {
+    year: 'February 2025',
+    title: 'Growing Together',
+    description: 'The team expanded to 15 talented professionals, bringing together developers, designers, analysts, and technology specialists under one vision.'
+  },
+  {
+    year: '2025',
+    title: 'Novoz Infinity Was Born',
+    description: 'Officially established Novoz Infinity with a mission to help businesses transform through Software, Automation, AI, and Digital Innovation.'
+  },
+  {
+    year: '2025',
+    title: 'Trusted Mid-Market Partner',
+    description: 'Delivered successful projects for growing businesses, earning trust through quality execution, transparency, and measurable business outcomes.'
+  },
+  {
+    year: 'Today',
+    title: 'Focused on the Future',
+    description: 'Helping organizations accelerate growth through enterprise software, AI-powered solutions, business automation, and scalable digital products.'
+  },
+  {
+    year: 'Tomorrow',
+    title: 'The Vision Ahead',
+    description: 'To become one of the most trusted technology partners for businesses worldwide, driving innovation through software, automation, and artificial intelligence.'
+  }
+];
 
 export default function About() {
   const navigate = useNavigate();
@@ -34,69 +121,103 @@ export default function About() {
           },
         }
       );
+
+      const items = el.querySelectorAll('.work-step');
+      gsap.fromTo(
+        items,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.work-steps-container',
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          }
+        }
+      );
+
+      const journeySteps = el.querySelectorAll('.journey-step');
+      gsap.fromTo(
+        journeySteps,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.journey-timeline-container',
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          }
+        }
+      );
     }
   }, []);
 
-
   return (
+    <div ref={containerRef} className="bg-white font-charlieText selection:bg-brand/10 selection:text-brand animate-fade">
 
-    <div ref={containerRef} className="bg-white font-charlieText">
+      {/* About Hero Section */}
+      <section className="relative overflow-hidden min-h-[70vh] flex items-center border-b border-slate-200 premium-mesh">
+        {/* Soft Ambient Light Glows */}
+        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-blue-400/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-10 left-1/4 w-[400px] h-[400px] bg-indigo-400/5 blur-[120px] rounded-full pointer-events-none" />
 
-      {/* About Hero */}
-      <section className="relative overflow-hidden min-h-[80vh] border-b border-slate-200">
-
-        {/* Particles Background */}
-        <div className="absolute inset-0 z-0">
-          <Galaxy
-            hueShift={220}
-            saturation={1.0}
-            glowIntensity={0.5}
-            density={1.2}
-            speed={1}
-            transparent={true}
-          />
-        </div>
-
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-white/85 backdrop-blur-[1px] z-[1]" />
-
-        {/* Content */}
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-28">
-
-          <div className="text-center max-w-5xl mx-auto">
-
-            <span className="inline-block rounded-full bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-blue-600 mb-6">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 text-center">
+          <div className="text-center max-w-4xl mx-auto">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 uppercase tracking-widest bg-blue-50/80 border border-blue-100 px-3 py-1.5 rounded-full mb-6 shadow-sm animate-pulse reveal-about">
               ABOUT NOVOZ INFINITY
             </span>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 font-charlieDisplay leading-[1.1] mb-8">
-              Engineered To Help Businesses Scale Through
-              <span className="text-blue-600">
-                {' '}Technology, Automation & AI
+            <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-bold tracking-tight text-slate-900 font-charlieDisplay leading-tight mb-6 flex flex-wrap justify-center items-center gap-x-2.5 gap-y-1 reveal-about">
+              <span>Designing the technical foundation for</span>
+              <span style={{
+                background: 'linear-gradient(135deg, #1868DB 0%, #2563EB 50%, #3B82F6 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+                className="inline-block"
+              >
+                <RotatingText
+                  texts={["business scale", "automated speed", "digital growth", "modern success"]}
+                  splitBy="characters"
+                  staggerDuration={0.025}
+                  staggerFrom="first"
+                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                  rotationInterval={2800}
+                />
               </span>
             </h1>
 
-            <p className="max-w-3xl mx-auto text-lg lg:text-xl text-slate-600 leading-relaxed mb-10">
-              Novoz Infinity is a technology solutions company helping businesses
-              modernise operations through custom software, automation systems,
-              digital platforms, and AI-powered solutions.
+            <p className="max-w-2xl mx-auto text-base sm:text-lg text-slate-650 leading-relaxed mb-8 reveal-about">
+              Novoz Infinity is an engineering team composed of software designers, automation specialists, and cloud architects. We operate as dedicated technology partners to build secure, robust platforms that support our clients' scaling goals.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-8">
-
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
               <div>
-                <h3 className="text-3xl font-bold text-blue-600">30+</h3>
-                <p className="text-slate-600">Businesses Served</p>
+                <CountUp end={30} suffix="+" />
+                <p className="text-xs text-slate-550 uppercase tracking-wider font-semibold mt-1">Businesses Served</p>
               </div>
-
-
-
+              <div className="w-px bg-slate-200 hidden sm:block" />
+              <div>
+                <CountUp end={4} suffix="+" />
+                <p className="text-xs text-slate-550 uppercase tracking-wider font-semibold mt-1">Proprietary Products</p>
+              </div>
+              <div className="w-px bg-slate-200 hidden sm:block" />
+              <div>
+                <CountUp end={100} suffix="%" />
+                <p className="text-xs text-slate-550 uppercase tracking-wider font-semibold mt-1">Client Retention Rate</p>
+              </div>
             </div>
-
           </div>
-
         </div>
-
       </section>
       {/* Company Overview & Mission */}
       <section className="py-24 bg-white border-b border-slate-200 overflow-hidden">
@@ -256,6 +377,56 @@ export default function About() {
 
         </div>
       </section>
+
+      {/* Our Journey Section */}
+      <section className="py-24 bg-white border-b border-slate-200 overflow-hidden">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 tracking-widest uppercase bg-blue-50 px-3 py-1.5 rounded-full mb-6">
+              OUR PATH
+            </span>
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 font-charlieDisplay leading-tight mb-6">
+              The Evolution of Novoz Infinity
+            </h2>
+            <p className="text-lg text-slate-600">
+              Our growth story, tracking how we evolved from a small team of software designers into a robust technology partner.
+            </p>
+          </div>
+
+          <div className="relative border-l border-slate-200 ml-4 sm:ml-8 space-y-12 journey-timeline-container">
+            {journeyItems.map((item, idx) => (
+              <div key={idx} className="relative pl-8 sm:pl-12 journey-step opacity-0">
+                {/* Node indicator */}
+                <div className="absolute -left-[7px] top-2.5 w-3.5 h-3.5 rounded-full border border-blue-600 bg-white flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-10">
+                  {/* Date/Year Badge */}
+                  <div className="sm:w-36 flex-shrink-0">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold text-blue-700 bg-blue-50 border border-blue-100 rounded-full font-charlieDisplay tracking-wide">
+                      {item.year}
+                    </span>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-slate-900 font-charlieDisplay mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
       {/* Core Values */}
       <section className="py-24 bg-slate-50 border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -315,10 +486,10 @@ export default function About() {
           </div>
 
           {/* Timeline */}
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-4 gap-8 work-steps-container">
 
             {/* Step 1 */}
-            <div className="relative group">
+            <div className="relative group work-step opacity-0">
 
               <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-6 transition-all duration-300 group-hover:scale-110">
                 01
@@ -336,7 +507,7 @@ export default function About() {
             </div>
 
             {/* Step 2 */}
-            <div className="relative group">
+            <div className="relative group work-step opacity-0">
 
               <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-6 transition-all duration-300 group-hover:scale-110">
                 02
@@ -354,7 +525,7 @@ export default function About() {
             </div>
 
             {/* Step 3 */}
-            <div className="relative group">
+            <div className="relative group work-step opacity-0">
 
               <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-6 transition-all duration-300 group-hover:scale-110">
                 03
@@ -372,7 +543,7 @@ export default function About() {
             </div>
 
             {/* Step 4 */}
-            <div className="relative group">
+            <div className="relative group work-step opacity-0">
 
               <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-6 transition-all duration-300 group-hover:scale-110">
                 04
@@ -393,119 +564,115 @@ export default function About() {
 
         </div>
       </section>
-    {/* Global Presence & Impact */}
-<section className="relative overflow-hidden py-24 bg-gradient-to-br from-blue-50 via-white to-slate-50 border-b border-slate-200">
+      {/* Global Presence & Impact */}
+      <section className="relative overflow-hidden py-24 bg-gradient-to-br from-blue-50 via-white to-slate-50 border-b border-slate-200">
 
-  {/* Background Glow */}
-  <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
-  <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-400/10 blur-3xl" />
+        {/* Background Glow */}
+        <div className="absolute top-0 left-0 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-400/10 blur-3xl" />
 
-  <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-    {/* Heading */}
-    <div className="text-center max-w-3xl mx-auto mb-16">
+          {/* Heading */}
+          <div className="text-center max-w-3xl mx-auto mb-16">
 
-      <span className="inline-block rounded-full bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-blue-600 mb-6">
-        GLOBAL PRESENCE
-      </span>
+            <span className="inline-block rounded-full bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-blue-600 mb-6">
+              GLOBAL PRESENCE
+            </span>
 
-      <BlurText
-        text="Driving Business Growth Across Regions"
-        animateBy="words"
-        direction="top"
-        delay={120}
-        className="text-4xl lg:text-5xl font-bold text-slate-900 font-charlieDisplay mb-6 justify-center"
-      />
+            <BlurText
+              text="Driving Business Growth Across Regions"
+              animateBy="words"
+              direction="top"
+              delay={120}
+              className="text-4xl lg:text-5xl font-bold text-slate-900 font-charlieDisplay mb-6 justify-center"
+            />
 
-      <p className="text-lg text-slate-600">
-        We partner with businesses across industries, delivering innovative
-        technology solutions that create measurable impact and sustainable growth.
-      </p>
+            <p className="text-lg text-slate-600">
+              We partner with businesses across industries, delivering innovative
+              technology solutions that create measurable impact and sustainable growth.
+            </p>
 
-    </div>
+          </div>
 
-    {/* Stats Cards */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
-      {/* Card 1 */}
-      <div
-        className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300"
-        style={{ animation: "moveLeftRight 4s ease-in-out infinite alternate" }}
-      >
-        <h3 className="text-5xl font-bold text-blue-600 mb-3">
-          3+
-        </h3>
+            {/* Card 1 */}
+            <div
+              className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <h3 className="text-5xl font-bold text-blue-600 mb-3">
+                2+
+              </h3>
 
-        <p className="font-semibold text-slate-900 mb-2">
-          Global Locations
-        </p>
+              <p className="font-semibold text-slate-900 mb-2">
+                Global Locations
+              </p>
 
-        <p className="text-sm text-slate-600">
-          Expanding our presence and serving clients across multiple regions.
-        </p>
-      </div>
+              <p className="text-sm text-slate-600">
+                Expanding our presence and serving clients across multiple regions.
+              </p>
+            </div>
 
-      {/* Card 2 */}
-      <div
-        className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300"
-        style={{ animation: "moveLeftRight 5s ease-in-out infinite alternate" }}
-      >
-        <h3 className="text-5xl font-bold text-blue-600 mb-3">
-          30+
-        </h3>
+            {/* Card 2 */}
+            <div
+              className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <h3 className="text-5xl font-bold text-blue-600 mb-3">
+                30+
+              </h3>
 
-        <p className="font-semibold text-slate-900 mb-2">
-          Businesses Served
-        </p>
+              <p className="font-semibold text-slate-900 mb-2">
+                Businesses Served
+              </p>
 
-        <p className="text-sm text-slate-600">
-          Helping organizations modernize operations through technology.
-        </p>
-      </div>
+              <p className="text-sm text-slate-600">
+                Helping organizations modernize operations through technology.
+              </p>
+            </div>
 
-      {/* Card 3 */}
-      <div
-        className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300"
-        style={{ animation: "moveLeftRight 6s ease-in-out infinite alternate" }}
-      >
-        <h3 className="text-5xl font-bold text-blue-600 mb-3">
-          100+
-        </h3>
+            {/* Card 3 */}
+            <div
+              className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <h3 className="text-5xl font-bold text-blue-600 mb-3">
+                100+
+              </h3>
 
-        <p className="font-semibold text-slate-900 mb-2">
-          Projects Delivered
-        </p>
+              <p className="font-semibold text-slate-900 mb-2">
+                Projects Delivered
+              </p>
 
-        <p className="text-sm text-slate-600">
-          Successfully building software, automation, and AI solutions.
-        </p>
-      </div>
+              <p className="text-sm text-slate-600">
+                Successfully building software, automation, and AI solutions.
+              </p>
+            </div>
 
-      {/* Card 4 */}
-      <div
-        className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300"
-        style={{ animation: "moveLeftRight 7s ease-in-out infinite alternate" }}
-      >
-        <h3 className="text-5xl font-bold text-blue-600 mb-3">
-          24/7
-        </h3>
+            {/* Card 4 */}
+            <div
+              className="rounded-3xl bg-white border border-slate-200 shadow-lg p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            >
+              <h3 className="text-5xl font-bold text-blue-600 mb-3">
+                24/7
+              </h3>
 
-        <p className="font-semibold text-slate-900 mb-2">
-          Client Support
-        </p>
+              <p className="font-semibold text-slate-900 mb-2">
+                Client Support
+              </p>
 
-        <p className="text-sm text-slate-600">
-          Continuous support and optimization for long-term business growth.
-        </p>
-      </div>
+              <p className="text-sm text-slate-600">
+                Continuous support and optimization for long-term business growth.
+              </p>
+            </div>
 
-    </div>
+          </div>
 
-  </div>
+        </div>
 
-</section>
+      </section>
 
-{/* Achievements */}
+      {/* Achievements */}
       <section className="py-24 bg-white border-b border-slate-200">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 

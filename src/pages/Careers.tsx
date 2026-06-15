@@ -51,7 +51,7 @@ export default function Careers() {
   }, []);
 
   return (
-    <div ref={pageRef} className="bg-white font-charlieText">
+    <div ref={pageRef} className="bg-white font-charlieText selection:bg-brand/10 selection:text-brand animate-fade">
 
       {/* ── HERO ── */}
       <section
@@ -59,25 +59,25 @@ export default function Careers() {
         style={{ background: '#dce8fb' }}
       >
         <svg aria-hidden="true" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 420" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="-60,80 260,20 320,200 140,340 -60,300" fill="#b8d0f5" opacity="0.7" />
-          <polygon points="1100,-30 1460,60 1460,260 1180,310 980,120" fill="#b8d0f5" opacity="0.65" />
-          <circle cx="720" cy="420" r="220" fill="#c4d9f7" opacity="0.4" />
-          <polygon points="580,-20 780,10 800,100 600,120 500,60" fill="#d4e5fa" opacity="0.55" />
+          <polygon points="-60,80 260,20 320,200 140,340 -60,300" fill="#b8d0f5" opacity="0.7" className="animate-drift-slow origin-center" />
+          <polygon points="1100,-30 1460,60 1460,260 1180,310 980,120" fill="#b8d0f5" opacity="0.65" className="animate-drift-slower origin-center" />
+          <circle cx="720" cy="420" r="220" fill="#c4d9f7" opacity="0.4" className="animate-pulse" style={{ animationDuration: '6s' }} />
+          <polygon points="580,-20 780,10 800,100 600,120 500,60" fill="#d4e5fa" opacity="0.55" className="animate-drift-slow origin-center" style={{ animationDuration: '18s' }} />
         </svg>
-        <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center animate-fade">
           <span className="c-reveal inline-block text-xs font-bold text-blue-700 uppercase tracking-widest bg-white/60 backdrop-blur px-3 py-1.5 rounded-full mb-5">
-            Careers at Novoz Infinity
+            CAREERS
           </span>
-          <h1 className="c-reveal text-5xl sm:text-6xl font-bold tracking-tight text-[#101214] font-charlieDisplay leading-tight mb-6">
-            Build something that<br />actually matters
+          <h1 className="c-reveal text-4xl sm:text-5xl lg:text-[58px] font-bold tracking-tight text-[#101214] font-charlieDisplay leading-tight mb-6">
+            Do the best work of your career
           </h1>
-          <p className="c-reveal text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            We're a fast-growing technology company with offices in the United Kingdom and India. Join a team where innovation is encouraged, ownership is valued, and every role has real impact.
+          <p className="c-reveal text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            We are an engineering-driven team building custom SaaS applications and AI platforms. Join us in our mission to design, deploy, and maintain scalable systems for organizations globally.
           </p>
           <div className="c-reveal mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="mailto:sales@novozinfinity.com?subject=Career%20Application%20—%20[Role%20Name]"
-              className="brand-button-blue inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-semibold"
+              className="brand-button-blue inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-semibold hover:scale-[1.01] transition-transform"
             >
               Apply Now <ArrowUpRight className="w-4 h-4" />
             </a>
@@ -195,7 +195,9 @@ export default function Careers() {
               <span className="text-white font-semibold">Career Application — [Role Name]</span>.
             </p>
             <a
-              href="mailto:sales@novozinfinity.com?subject=Career%20Application%20—%20General%20Enquiry"
+              href="https://forms.gle/yE3b6EVNfSj96u999"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white text-blue-600 font-semibold text-sm px-8 py-3 rounded-md hover:bg-blue-50 transition-colors"
             >
               Send your CV <ArrowUpRight className="w-4 h-4" />
