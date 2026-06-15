@@ -421,6 +421,7 @@ function ScrollStack({
 
   const updateCardTransforms = useCallback(() => {
     if (!cardsRef.current.length || isUpdatingRef.current) return;
+    if (window.innerWidth < 1024) return; // Completely disable JS calculations on mobile
     isUpdatingRef.current = true;
 
     const scrollTop = window.scrollY;
@@ -471,20 +472,39 @@ function ScrollStack({
   useLayoutEffect(() => {
     const cards = Array.from(document.querySelectorAll('.scroll-stack-card')) as HTMLElement[];
     cardsRef.current = cards;
-    cards.forEach((card, i) => {
-      if (i < cards.length - 1) card.style.marginBottom = `${itemDistance}px`;
-      card.style.willChange = 'transform';
-      card.style.transformOrigin = 'top center';
-      card.style.backfaceVisibility = 'hidden';
-      card.style.transform = 'translateZ(0)';
-    });
 
-    // Initial measurement
+    const handleLayout = () => {
+      const isMobile = window.innerWidth < 1024;
+      cards.forEach((card, i) => {
+        if (i < cards.length - 1) {
+          card.style.marginBottom = isMobile ? '24px' : `${itemDistance}px`;
+        } else {
+          card.style.marginBottom = '0px';
+        }
+        if (isMobile) {
+          card.style.willChange = 'auto';
+          card.style.transform = '';
+          card.style.transformOrigin = '';
+          card.style.backfaceVisibility = '';
+        } else {
+          card.style.willChange = 'transform';
+          card.style.transformOrigin = 'top center';
+          card.style.backfaceVisibility = 'hidden';
+          card.style.transform = 'translate3d(0, 0, 0)';
+        }
+      });
+      if (isMobile) {
+        lastTransformsRef.current.clear();
+      }
+    };
+
+    handleLayout();
     measureStaticTops();
     updateCardTransforms();
 
     let ticking = false;
     const onScroll = () => {
+      if (window.innerWidth < 1024) return; // Completely ignore scroll calculations on mobile/tablet viewport
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(() => {
@@ -495,6 +515,7 @@ function ScrollStack({
 
     // Use ResizeObserver on wrapper to re-measure positions on layout changes
     const resizeObserver = new ResizeObserver(() => {
+      handleLayout();
       measureStaticTops();
       updateCardTransforms();
     });
@@ -514,6 +535,7 @@ function ScrollStack({
       isUpdatingRef.current = false;
     };
   }, [itemDistance, updateCardTransforms, measureStaticTops]);
+
 
   return (
     <div ref={wrapperRef} className="relative w-full">
