@@ -73,13 +73,12 @@ export default function Home() {
 
   const logos = [
     { src: logoAssured, name: "Assured Technologies", isInverted: true },
-    { src: logoRackspace, name: "Rackspace" },
-    { src: logoBni, name: "BNI Tirunelveli" },
-    { src: logoMakeyourown, name: "Makeyourown" },
-    { src: logoGrocerynxt, name: "Grocery Next" },
+  
+  
+  
     { src: logoTahira, name: "Tahira Groups" },
     { src: logoKorichuko, name: "Korichuko!" },
-    { src: logoAaratech, name: "AARA" }
+
   ].map((c) => ({
     node: (
       <img
